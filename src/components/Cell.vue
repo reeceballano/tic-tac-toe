@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
@@ -67,12 +67,23 @@ export default {
             return store.getters['game/getGameActive'];
         })
 
+        const resetState = computed(() => {
+            return store.getters['game/getresetState'];
+        })
+
+        watch(resetState, () => {
+            if(resetState.value) {
+                markCell.value = '';
+            }
+        })
+
         return {
             playerClick,
             markCell,
             currentPlayer,
             addNumber,
-            gameActive
+            gameActive,
+            resetState
         }
     }
 }

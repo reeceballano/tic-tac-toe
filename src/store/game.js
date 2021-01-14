@@ -4,6 +4,7 @@ const state = {
     currentPlayer: 'X',
     winner: '',
     gameActive: true,
+    reset: false,
     gameState: ['','','','','','','','',''],
     winningConditions: [
         [0, 1, 2],
@@ -34,6 +35,10 @@ const getters = {
 
     getGameActive: state => {
         return state.gameActive;
+    },
+
+    getresetState: state => {
+        return state.reset;
     }
 }
 
@@ -54,6 +59,16 @@ const actions = {
 
     addNumber({ state }, payload) {
         state.gameState[payload.cell] = payload.player;
+    },
+
+    resetGame({ state }) {
+        state.gameActive = true;
+        state.currentPlayer = 'X';
+        state.gameState = ['','','','','','','','',''];
+        state.reset = true;
+        setTimeout(() => {
+            state.reset = false;
+        },10)
     },
 
     checkWinner({ state }) {

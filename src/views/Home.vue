@@ -4,9 +4,13 @@
             <h2 class="text-red-500 text-center">Tic-Tac-Toe</h2>
             <span v-if="gameActive">Current Player: {{ currentPlayer }}</span> <br />
             Game State: {{ gameState }} <br />
+
             <span v-if="!gameActive">Winner: {{ winner }}</span>
+
             <div class="game-wrapper w-1/2 m-auto my-10">
                 <Board />
+
+                <button @click.prevent="reset" class="bg-blue-800 text-white px-5 py-3 rounded mt-14 hover:bg-blue-900 transition-colors delay-900 text-sm">Reset Game</button>
             </div>
         </div>
     </div>
@@ -42,11 +46,16 @@ export default {
             return store.getters['game/getGameActive'];
         })
 
+        const reset = () => {
+            store.dispatch('game/resetGame');
+        }
+
         return {
             currentPlayer,
             gameState,
             winner,
-            gameActive
+            gameActive,
+            reset,
         }
     }
 
