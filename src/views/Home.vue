@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import Board from '@/components/Board';
 import { useStore } from 'vuex';
 
@@ -30,14 +30,6 @@ export default {
             return store.getters['game/getCurrentPlayer'];
         })
 
-        const playerX = ref(computed(() => {
-            return store.getters['game/getPlayerXStat'];
-        }))
-
-        const playerO = ref(computed(() => {
-            return store.getters['game/getPlayerOStat'];
-        }))
-
         const gameState = computed(() => {
             return store.getters['game/getGameState'];
         })
@@ -52,8 +44,6 @@ export default {
 
         return {
             currentPlayer,
-            playerX,
-            playerO,
             gameState,
             winner,
             gameActive
