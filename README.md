@@ -1,29 +1,12 @@
 # tic-tac-toe
 
-## Project setup
-```
-npm install
-```
+## Project
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+A classic 2 player Tic-Tac-Toe game written in Vue 3
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Tech
 
-### Run your unit tests
-```
-npm run test:unit
-```
+- Vue 3
+- Vuex 4
+- TailwindCSS 2
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
