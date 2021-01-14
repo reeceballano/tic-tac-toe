@@ -91,6 +91,6 @@ export default {
 
 <style lang="scss" scoped>
     .game-cell {
-        @apply hover:bg-blue-200 delay-100 transition-colors text-7xl font-extralight  cursor-pointer top-0 left-0 flex items-center justify-center w-full h-36;
+        @apply hover:bg-blue-200 delay-100 transition-colors text-7xl font-extralight  cursor-pointer top-0 left-0 flex items-center justify-center w-full md:h-36 h-24;
     }
 </style>

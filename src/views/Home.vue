@@ -4,7 +4,7 @@
             <span v-if="gameActive">Current Player: {{ currentPlayer }}</span>
             <span v-if="!gameActive">Winner: {{ winner }}</span>
 
-            <div class="game-wrapper w-1/3 m-auto my-10">
+            <div class="game-wrapper md:w-1/3 w-10/12 m-auto my-10">
                 <Board />
 
                 <button @click.prevent="reset" class="bg-blue-800 text-white px-5 py-3 rounded mt-14 hover:bg-blue-900 transition-colors delay-900 text-sm">Reset Game</button>
