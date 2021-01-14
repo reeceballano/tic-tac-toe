@@ -1,13 +1,10 @@
 <template>
     <div class="home">
-        <div class="container my-5">
-            <h2 class="text-red-500 text-center">Tic-Tac-Toe</h2>
-            <span v-if="gameActive">Current Player: {{ currentPlayer }}</span> <br />
-            Game State: {{ gameState }} <br />
-
+        <div class="container my-5 mt-16">
+            <span v-if="gameActive">Current Player: {{ currentPlayer }}</span>
             <span v-if="!gameActive">Winner: {{ winner }}</span>
 
-            <div class="game-wrapper w-1/2 m-auto my-10">
+            <div class="game-wrapper w-1/3 m-auto my-10">
                 <Board />
 
                 <button @click.prevent="reset" class="bg-blue-800 text-white px-5 py-3 rounded mt-14 hover:bg-blue-900 transition-colors delay-900 text-sm">Reset Game</button>

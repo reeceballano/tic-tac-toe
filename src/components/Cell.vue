@@ -2,13 +2,13 @@
     <div class="col-span-1 border relative">
         <div 
             v-if="markCell.length === 0 && gameActive"
-            class="cursor-pointer top-0 left-0 flex items-center justify-center w-full h-32" 
+            class="game-cell" 
             @click.prevent="playerClick(), addNumber(cell)"
         >
             {{ markCell }}
         </div>
 
-        <div v-else class="cursor-pointer top-0 left-0 flex items-center justify-center w-full h-32">
+        <div v-else class="game-cell">
             {{ markCell }}
         </div>
     </div>
@@ -90,5 +90,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+    .game-cell {
+        @apply hover:bg-blue-200 delay-100 transition-colors text-7xl font-extralight  cursor-pointer top-0 left-0 flex items-center justify-center w-full h-36;
+    }
 </style>
