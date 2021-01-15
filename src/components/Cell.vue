@@ -9,7 +9,8 @@
         </div>
 
         <div v-else class="game-cell">
-            {{ markCell }}
+            <Icon v-if="markCell === 'X'" icon="times" :styles="['text-gray-800']" />
+            <Icon v-if="markCell === 'O'" icon="circle" :styles="['text-red-500']" />
         </div>
     </div>
 </template>
@@ -17,6 +18,7 @@
 <script>
 import { ref, computed, watch } from 'vue';
 import { useStore } from 'vuex';
+import Icon from '@/components/Icon';
 
 export default {
     name: "Cell",
@@ -24,6 +26,9 @@ export default {
         cell: {
             type: Number
         }
+    },
+    components: {
+        Icon
     },
 
     setup() {

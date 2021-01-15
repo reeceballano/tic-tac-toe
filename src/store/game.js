@@ -84,6 +84,7 @@ const actions = {
             }
             if (a === b && b === c) {
                 roundWon = true;
+                console.log(winCondition[0],winCondition[1],winCondition[2])
                 break
             }
         }
