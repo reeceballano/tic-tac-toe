@@ -9,6 +9,9 @@
 
                 <button @click.prevent="reset" class="bg-blue-800 text-white px-5 py-3 rounded-full mt-14 hover:bg-blue-900 transition-colors delay-900 text-sm">Reset Game</button>
             </div>
+
+            <Audio @play="play" src="audo-1.mp3" />
+            <Audio @play="play" src="audo-2.mp3" />
         </div>
     </div>
 </template>
@@ -17,11 +20,13 @@
 import { computed } from 'vue';
 import Board from '@/components/Board';
 import { useStore } from 'vuex';
+import Audio from '@/components/Audio';
 
 export default {
     name: 'Home',
     components: {
-        Board
+        Board,
+        Audio
     },
 
     setup() {
@@ -47,12 +52,17 @@ export default {
             store.dispatch('game/resetGame');
         }
 
+        const play = (x) => {
+            console.log('parent', x);
+        }
+
         return {
             currentPlayer,
             gameState,
             winner,
             gameActive,
             reset,
+            play
         }
     }
 
