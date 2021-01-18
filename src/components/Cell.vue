@@ -15,7 +15,6 @@
 
             <!-- <Icon v-if="prevMoves.includes(cell) && gameState[cell] === 'O'" icon="circle" :styles="['text-green-500']" />
             <Icon v-if="prevMoves.includes(cell) && gameState[cell] === 'X'" icon="times" :styles="['text-red-500']" /> -->
-            
             <Icon :icon="playerIcon" :styles="['text-green-500']" />
         </div>
     </div>
