@@ -1,5 +1,6 @@
 <template>
     <div class="col-span-1 border relative">
+        {{ playerIcon }}
         <div 
             v-if="markCell.length === 0 && gameActive"
             class="game-cell" 
@@ -9,8 +10,13 @@
         </div>
 
         <div v-else class="game-cell">
-            <Icon v-if="markCell === 'X'" icon="times" :styles="['text-gray-800']" />
-            <Icon v-if="markCell === 'O'" icon="circle" :styles="['text-red-500']" />
+            <!-- <Icon v-if="markCell === 'X'" icon="times" :styles="['text-gray-800']" />
+            <Icon v-if="markCell === 'O'" icon="circle" :styles="['text-red-500']" /> -->
+
+            <!-- <Icon v-if="prevMoves.includes(cell) && gameState[cell] === 'O'" icon="circle" :styles="['text-green-500']" />
+            <Icon v-if="prevMoves.includes(cell) && gameState[cell] === 'X'" icon="times" :styles="['text-red-500']" /> -->
+            
+            <Icon :icon="playerIcon" :styles="['text-green-500']" />
         </div>
     </div>
 </template>
@@ -31,7 +37,7 @@ export default {
         Icon
     },
 
-    setup() {
+    setup(props) {
         const store = useStore();
 
         let currentPlayer = ref(computed(() => {
@@ -40,6 +46,8 @@ export default {
 
         let markCell = ref('');
 
+        let playerIcon = ref('');
+
         const playerClick = () => {
             switch(currentPlayer.value) {
                 case 'X':
@@ -47,7 +55,7 @@ export default {
                     markCell.value = currentPlayer.value;
                     setTimeout(() => {
                         store.dispatch('game/playerTurn', 'O')
-                    }, 1)
+                    }, 1000)
                     break;
 
                 case 'O':
@@ -55,7 +63,7 @@ export default {
                     markCell.value = currentPlayer.value;
                     setTimeout(() => {
                         store.dispatch('game/playerTurn', 'X')
-                    }, 1)
+                    }, 1000)
                     break;
             }
         }
@@ -72,6 +80,14 @@ export default {
             return store.getters['game/getGameActive'];
         })
 
+        const gameState = computed(() => {
+            return store.getters['game/getGameState'];
+        })
+
+        const prevMoves = computed(() => {
+            return store.getters['game/getPrevMoves'];
+        })
+
         const resetState = computed(() => {
             return store.getters['game/getresetState'];
         })
@@ -82,13 +98,29 @@ export default {
             }
         })
 
+        watch(gameState.value, () => {
+            console.log('gamestate watch')
+            if(prevMoves.value.includes(props.cell) && gameState.value[props.cell] === 'O') {
+                console.log('o icon')
+                playerIcon.value = 'circle';
+            } 
+
+            if(prevMoves.value.includes(props.cell) && gameState.value[props.cell] === 'X') {
+                console.log('x icon')
+                playerIcon.value = 'times';
+            }
+        })
+
         return {
             playerClick,
             markCell,
             currentPlayer,
             addNumber,
             gameActive,
-            resetState
+            resetState,
+            gameState,
+            prevMoves,
+            playerIcon,
         }
     }
 }

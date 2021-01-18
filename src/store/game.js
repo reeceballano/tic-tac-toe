@@ -1,4 +1,3 @@
-
 // STATE
 const state = {
     currentPlayer: 'X',
@@ -15,7 +14,9 @@ const state = {
         [2, 5, 8],
         [0, 4, 8],
         [2, 4, 6]
-    ]
+    ],
+    prevMoves: ['','','','','','','','',''],
+    // ai: null
     
 }
 
@@ -39,6 +40,10 @@ const getters = {
 
     getresetState: state => {
         return state.reset;
+    },
+
+    getPrevMoves: state => {
+        return state.prevMoves;
     }
 }
 
@@ -57,8 +62,33 @@ const actions = {
         dispatch('checkWinner');
     },
 
-    addNumber({ state }, payload) {
+    addNumber({ state, commit }, payload) {
+        console.log(payload)
         state.gameState[payload.cell] = payload.player;
+        state.prevMoves[payload.cell] = payload.cell;
+
+        setTimeout(() => {
+            console.log('player O')
+            if(state.currentPlayer === 'O') {
+                // dispatch('aiMove');
+                let randomNum = Math.floor( Math.floor(Math.random() * 10)  );
+
+                for(let i = 0; i < 9; i++) {
+                    if(state.prevMoves.includes(i)) {
+                        continue;
+                    } else {
+                        state.gameState[randomNum] = 'O';
+                        state.prevMoves[randomNum] = randomNum;
+                        state.currentPlayer === 'O';
+                    }
+                }
+            }
+        }, 2000)
+
+        setTimeout(() => {
+            commit('SET_CURRENT_PLAYER', 'X')
+        }, 2500)
+        
     },
 
     resetGame({ state }) {
@@ -105,6 +135,26 @@ const actions = {
             state.winner = 'Draw'
             state.gameActive = false;
         }
+    },
+
+    async aiMove({ state }) {
+        const prevMoves = await state.prevMoves;
+
+        let randomNum = Math.floor( Math.floor(Math.random() * 10)  );
+
+        let x;
+
+        for(let i = 0; i < 9; i++) {
+            if(prevMoves.includes(randomNum)) {
+                continue;
+            } else {
+                x = i;
+                break;
+            }
+        }
+
+        state.ai = x;
+        console.log(x)
     }
 
 

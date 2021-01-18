@@ -2,8 +2,9 @@
     <div class="home">
         <div class="container my-5 mt-16">
             <span v-if="gameActive">Current Player: {{ currentPlayer }}</span>
-            <span v-if="!gameActive">Winner: {{ winner }}</span>
-
+            <span v-if="!gameActive">Winner: {{ winner }}</span> <br />
+            {{ gameState }} <br />
+            {{ prevMoves }}
             <div class="game-wrapper md:w-1/3 w-10/12 m-auto my-10">
                 <Board />
 
@@ -47,12 +48,17 @@ export default {
             store.dispatch('game/resetGame');
         }
 
+        const prevMoves = computed(() => {
+            return store.getters['game/getPrevMoves'];
+        })
+
         return {
             currentPlayer,
             gameState,
             winner,
             gameActive,
             reset,
+            prevMoves
         }
     }
 
