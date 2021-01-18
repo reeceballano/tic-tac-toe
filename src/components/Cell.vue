@@ -1,21 +1,21 @@
 <template>
     <div class="col-span-1 border relative">
-        {{ playerIcon }}
         <div 
-            v-if="markCell.length === 0 && gameActive"
+            v-if="gameActive"
             class="game-cell" 
             @click.prevent="playerClick(), addNumber(cell)"
         >
-            {{ markCell }}
+            <Icon v-if="playerIcon === 'circle'" icon="circle" :styles="['text-red-500']" /> 
+            <Icon v-if="playerIcon === 'times'" icon="times" :styles="['text-gray-800']" />
         </div>
 
         <div v-else class="game-cell">
-            <!-- <Icon v-if="markCell === 'X'" icon="times" :styles="['text-gray-800']" />
-            <Icon v-if="markCell === 'O'" icon="circle" :styles="['text-red-500']" /> -->
+            <Icon v-if="playerIcon === 'circle'" icon="circle" :styles="['text-red-500']" /> 
+            <Icon v-if="playerIcon === 'times'" icon="times" :styles="['text-gray-800']" />
 
             <!-- <Icon v-if="prevMoves.includes(cell) && gameState[cell] === 'O'" icon="circle" :styles="['text-green-500']" />
             <Icon v-if="prevMoves.includes(cell) && gameState[cell] === 'X'" icon="times" :styles="['text-red-500']" /> -->
-            <Icon :icon="playerIcon" :styles="['text-green-500']" />
+            <!-- <Icon :icon="playerIcon" :styles="['text-green-500']" /> -->
         </div>
     </div>
 </template>
@@ -54,7 +54,7 @@ export default {
                     markCell.value = currentPlayer.value;
                     setTimeout(() => {
                         store.dispatch('game/playerTurn', 'O')
-                    }, 1000)
+                    }, 100)
                     break;
 
                 case 'O':
@@ -62,7 +62,7 @@ export default {
                     markCell.value = currentPlayer.value;
                     setTimeout(() => {
                         store.dispatch('game/playerTurn', 'X')
-                    }, 1000)
+                    }, 100)
                     break;
             }
         }
@@ -98,14 +98,11 @@ export default {
         })
 
         watch(gameState.value, () => {
-            console.log('gamestate watch')
             if(prevMoves.value.includes(props.cell) && gameState.value[props.cell] === 'O') {
-                console.log('o icon')
                 playerIcon.value = 'circle';
             } 
 
             if(prevMoves.value.includes(props.cell) && gameState.value[props.cell] === 'X') {
-                console.log('x icon')
                 playerIcon.value = 'times';
             }
         })

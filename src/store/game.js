@@ -62,32 +62,36 @@ const actions = {
         dispatch('checkWinner');
     },
 
-    addNumber({ state, commit }, payload) {
-        console.log(payload)
+    addNumber({ state, commit, dispatch }, payload) {
         state.gameState[payload.cell] = payload.player;
         state.prevMoves[payload.cell] = payload.cell;
 
         setTimeout(() => {
-            console.log('player O')
             if(state.currentPlayer === 'O') {
                 // dispatch('aiMove');
-                let randomNum = Math.floor( Math.floor(Math.random() * 10)  );
+                const randomNum = Math.floor( Math.floor(Math.random() * 9)  );
 
-                for(let i = 0; i < 9; i++) {
-                    if(state.prevMoves.includes(i)) {
+                for(let i = 0; i < state.gameState.length; i++) {
+                    if(state.prevMoves.includes(randomNum)) {
+                        console.log(state.prevMoves.includes(randomNum))
+                        // console.log('continue', i)
                         continue;
                     } else {
+                        console.log(state.prevMoves.includes(randomNum))
+                        console.log(randomNum)
                         state.gameState[randomNum] = 'O';
                         state.prevMoves[randomNum] = randomNum;
                         state.currentPlayer === 'O';
+                        dispatch('checkWinner');
+                        break;
                     }
                 }
             }
-        }, 2000)
+        }, 500)
 
         setTimeout(() => {
             commit('SET_CURRENT_PLAYER', 'X')
-        }, 2500)
+        }, 600)
         
     },
 
