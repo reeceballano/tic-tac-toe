@@ -62,38 +62,12 @@ const actions = {
         dispatch('checkWinner');
     },
 
-    async addNumber({ state, commit, dispatch }, payload) {
+    async addNumber({ state, dispatch }, payload) {
         state.gameState[payload.cell] = payload.player;
         state.prevMoves[payload.cell] = payload.cell;
 
         dispatch('aiMove')
-
-        setTimeout(() => {
-            if(state.currentPlayer === 'O') {
-                // dispatch('aiMove');
-                const randomNum = Math.floor(Math.random() * 8)
-
-                for(let i = 0; i < state.gameState.length; i++) {
-                    if(state.prevMoves.includes(randomNum)) {
-                        console.log(state.prevMoves.includes(randomNum), randomNum)
-                        // console.log('continue', i)
-                        continue;
-                    } else {
-                        console.log(state.prevMoves.includes(randomNum))
-                        console.log(randomNum)
-                        state.gameState[randomNum] = 'O';
-                        state.prevMoves[randomNum] = randomNum;
-                        state.currentPlayer === 'O';
-                        dispatch('checkWinner');
-                    }
-                }
-            }
-        }, 500)
-
-        setTimeout(() => {
-            commit('SET_CURRENT_PLAYER', 'X')
-        }, 600)
-        
+       
     },
 
     resetGame({ state }) {
@@ -142,27 +116,53 @@ const actions = {
         }
     },
 
-    aiMove({ state }) {
-        const prevMoves = state.prevMoves;
+    aiMove({ state, dispatch, commit }) {
+        // const prevMoves = state.prevMoves;
 
-        let randomNum = Math.floor( Math.floor(Math.random() * 9)  );
+        // let randomNum = Math.floor( Math.floor(Math.random() * 9)  );
 
-        let x;
+        // let x;
 
-        for(let i = 0; i < 9; i++) {
-            if(prevMoves.includes(randomNum)) {
-                console.log('number included')
-                continue;
-            } else {
-                console.log('number NOT included')
-                x = randomNum;
-                break;
-                // break;
+        // for(let i = 0; i < 9; i++) {
+        //     if(prevMoves.includes(randomNum)) {
+        //         console.log('number included')
+        //         continue;
+        //     } else {
+        //         console.log('number NOT included')
+        //         x = randomNum;
+        //         break;
+        //         // break;
+        //     }
+        // }
+
+        // state.ai = x;
+        // console.log('ai move: ', x)
+        // -------------------------------------------------------------
+
+
+        setTimeout(() => {
+            if(state.currentPlayer === 'O') {
+                // dispatch('aiMove');
+                const randomNum = Math.floor(Math.random() * 8)
+
+                for(let i = 0; i < 8; i++) {
+                    if(Array.isArray(state.prevMoves)) {
+                        if(state.prevMoves.includes(randomNum)) {
+                            continue;
+                        } else {
+                            state.gameState[randomNum] = 'O';
+                            state.prevMoves[randomNum] = randomNum;
+                            commit('SET_CURRENT_PLAYER', 'O');
+                            dispatch('checkWinner');
+                        }
+                    }
+                }
             }
-        }
+        }, 500)
 
-        state.ai = x;
-        console.log('ai move: ', x)
+        setTimeout(() => {
+            commit('SET_CURRENT_PLAYER', 'X')
+        }, 600)
     }
 
 
