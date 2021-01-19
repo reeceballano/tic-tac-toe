@@ -16,7 +16,7 @@ const state = {
         [2, 4, 6]
     ],
     prevMoves: ['','','','','','','','',''],
-    // ai: null
+    ai: null
     
 }
 
@@ -62,18 +62,20 @@ const actions = {
         dispatch('checkWinner');
     },
 
-    addNumber({ state, commit, dispatch }, payload) {
+    async addNumber({ state, commit, dispatch }, payload) {
         state.gameState[payload.cell] = payload.player;
         state.prevMoves[payload.cell] = payload.cell;
+
+        dispatch('aiMove')
 
         setTimeout(() => {
             if(state.currentPlayer === 'O') {
                 // dispatch('aiMove');
-                const randomNum = Math.floor( Math.floor(Math.random() * 9)  );
+                const randomNum = Math.floor(Math.random() * 8)
 
                 for(let i = 0; i < state.gameState.length; i++) {
                     if(state.prevMoves.includes(randomNum)) {
-                        console.log(state.prevMoves.includes(randomNum))
+                        console.log(state.prevMoves.includes(randomNum), randomNum)
                         // console.log('continue', i)
                         continue;
                     } else {
@@ -83,7 +85,6 @@ const actions = {
                         state.prevMoves[randomNum] = randomNum;
                         state.currentPlayer === 'O';
                         dispatch('checkWinner');
-                        break;
                     }
                 }
             }
@@ -141,24 +142,27 @@ const actions = {
         }
     },
 
-    async aiMove({ state }) {
-        const prevMoves = await state.prevMoves;
+    aiMove({ state }) {
+        const prevMoves = state.prevMoves;
 
-        let randomNum = Math.floor( Math.floor(Math.random() * 10)  );
+        let randomNum = Math.floor( Math.floor(Math.random() * 9)  );
 
         let x;
 
         for(let i = 0; i < 9; i++) {
             if(prevMoves.includes(randomNum)) {
+                console.log('number included')
                 continue;
             } else {
-                x = i;
+                console.log('number NOT included')
+                x = randomNum;
                 break;
+                // break;
             }
         }
 
         state.ai = x;
-        console.log(x)
+        console.log('ai move: ', x)
     }
 
 
