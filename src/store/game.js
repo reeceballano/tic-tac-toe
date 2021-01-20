@@ -116,7 +116,7 @@ const actions = {
         }
     },
 
-    aiMove({ state, dispatch, commit }) {
+    async aiMove({ state, dispatch, commit }) {
         // const prevMoves = state.prevMoves;
 
         // let randomNum = Math.floor( Math.floor(Math.random() * 9)  );
@@ -139,24 +139,35 @@ const actions = {
         // console.log('ai move: ', x)
         // -------------------------------------------------------------
 
+        let pMoves = await state.prevMoves;
+        let randomNum = Math.floor(Math.random() * 8);
 
         setTimeout(() => {
             if(state.currentPlayer === 'O') {
-                // dispatch('aiMove');
-                const randomNum = Math.floor(Math.random() * 8)
 
-                for(let i = 0; i < 8; i++) {
-                    if(Array.isArray(state.prevMoves)) {
-                        if(state.prevMoves.includes(randomNum)) {
-                            continue;
-                        } else {
-                            state.gameState[randomNum] = 'O';
-                            state.prevMoves[randomNum] = randomNum;
-                            commit('SET_CURRENT_PLAYER', 'O');
-                            dispatch('checkWinner');
-                        }
-                    }
+                while(pMoves.includes(randomNum)) {
+                    randomNum = Math.floor(Math.random() * 8);
                 }
+
+                state.gameState[randomNum] = 'O';
+                state.prevMoves[randomNum] = randomNum;
+                // commit('SET_CURRENT_PLAYER', 'O');
+                dispatch('checkWinner');
+
+                // for(let i = 0; i < 8; i++) {
+                //     if(Array.isArray(state.prevMoves)) {
+                        
+                //         if(pMoves.includes(randomNum)) {
+                //             // randomNum = Math.floor(Math.random() * 8);
+                //             continue;
+                //         } else {
+                //             state.gameState[randomNum] = 'O';
+                //             state.prevMoves[randomNum] = randomNum;
+                //             commit('SET_CURRENT_PLAYER', 'O');
+                //             dispatch('checkWinner');
+                //         }
+                //     }
+                // }
             }
         }, 500)
 
