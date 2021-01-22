@@ -53,6 +53,9 @@ const mutations = {
         state.currentPlayer = currentPlayer;
     },
 
+    SET_AI_OPPONENT(state, ai) {
+        state.ai = ai;
+    }
 }
 
 // ACTIONS
@@ -174,6 +177,10 @@ const actions = {
         setTimeout(() => {
             commit('SET_CURRENT_PLAYER', 'X')
         }, 600)
+    },
+
+    aiOpponent({ commit }, payload) {
+        commit('SET_AI_OPPONENT', payload);
     }
 
 
