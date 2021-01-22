@@ -180,6 +180,7 @@ const actions = {
     },
 
     aiOpponent({ commit }, payload) {
+        console.log(payload);
         commit('SET_AI_OPPONENT', payload);
     }
 

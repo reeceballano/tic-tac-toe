@@ -16,8 +16,8 @@
 
 <script>
 import { computed } from 'vue';
-import Board from '@/components/Board';
 import { useStore } from 'vuex';
+import Board from '@/components/Board';
 
 export default {
     name: 'Home',
