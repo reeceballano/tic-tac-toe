@@ -16,7 +16,7 @@ const state = {
         [2, 4, 6]
     ],
     prevMoves: ['','','','','','','','',''],
-    ai: null
+    ai: false
     
 }
 
@@ -66,8 +66,9 @@ const actions = {
         state.gameState[payload.cell] = payload.player;
         state.prevMoves[payload.cell] = payload.cell;
 
-        dispatch('aiMove')
-       
+        if(state.ai) {
+            dispatch('aiMove')
+        }
     },
 
     resetGame({ state }) {
@@ -149,10 +150,9 @@ const actions = {
                     randomNum = Math.floor(Math.random() * 8);
                 }
 
-                state.gameState[randomNum] = 'O';
                 state.prevMoves[randomNum] = randomNum;
-                // commit('SET_CURRENT_PLAYER', 'O');
                 dispatch('checkWinner');
+                state.gameState[randomNum] = 'O';
 
                 // for(let i = 0; i < 8; i++) {
                 //     if(Array.isArray(state.prevMoves)) {
