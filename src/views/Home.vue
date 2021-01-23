@@ -8,7 +8,10 @@
             <div class="game-wrapper md:w-1/3 w-10/12 m-auto my-10">
                 <Board />
 
-                <button @click.prevent="reset" class="bg-blue-800 text-white px-5 py-3 rounded-full mt-14 hover:bg-blue-900 transition-colors delay-900 text-sm">Reset Game</button>
+                <div class="flex justify-between items-center mt-14">
+                    <button @click.prevent="reset" class="bg-blue-800 text-white px-5 py-3 rounded-full hover:bg-blue-900 transition-colors delay-900 text-sm">Reset Game</button>
+                    <Toggle @toggle="toggle" />
+                </div>
             </div>
         </div>
     </div>
@@ -18,11 +21,13 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import Board from '@/components/Board';
+import Toggle from '@/components/Toggle';
 
 export default {
     name: 'Home',
     components: {
-        Board
+        Board,
+        Toggle
     },
 
     setup() {
@@ -52,13 +57,19 @@ export default {
             return store.getters['game/getPrevMoves'];
         })
 
+        const toggle = (x) => {
+            console.log('parent ', x)
+            store.dispatch('game/aiOpponent', x);
+        }
+
         return {
             currentPlayer,
             gameState,
             winner,
             gameActive,
             reset,
-            prevMoves
+            prevMoves,
+            toggle
         }
     }
 
