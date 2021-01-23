@@ -10,7 +10,7 @@
 
                 <div class="flex justify-between items-center mt-14">
                     <button @click.prevent="reset" class="bg-blue-800 text-white px-5 py-3 rounded-full hover:bg-blue-900 transition-colors delay-900 text-sm">Reset Game</button>
-                    <Toggle @toggle="toggle" />
+                    <Toggle :toggleText="opponentName" @toggle="toggle" />
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import Board from '@/components/Board';
 import Toggle from '@/components/Toggle';
@@ -57,8 +57,15 @@ export default {
             return store.getters['game/getPrevMoves'];
         })
 
+        let opponentName = ref('Play with AI');
+
         const toggle = (x) => {
-            console.log('parent ', x)
+            if(x) {
+                opponentName.value = 'Play with HUMAN';
+            } else {
+                opponentName.value = 'Play with AI';
+            }
+
             store.dispatch('game/aiOpponent', x);
         }
 
@@ -69,7 +76,8 @@ export default {
             gameActive,
             reset,
             prevMoves,
-            toggle
+            toggle,
+            opponentName
         }
     }
 

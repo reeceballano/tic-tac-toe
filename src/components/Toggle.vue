@@ -13,7 +13,7 @@
             </div>
             <!-- label -->
             <div class="ml-3 text-gray-700 font-medium">
-                Play with AI
+                {{ toggleText }}
             </div>
         </label>
     </div>
@@ -24,7 +24,12 @@ import { ref } from 'vue';
 
 export default {
     name: "Toggle",
-
+    props: {
+        toggleText: {
+            type: String,
+            default: 'Play with AI'
+        }
+    },
     setup(props, { emit }) {
         const status = ref(false);
 
