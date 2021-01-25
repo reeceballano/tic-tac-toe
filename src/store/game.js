@@ -121,27 +121,6 @@ const actions = {
     },
 
     async aiMove({ state, dispatch, commit }) {
-        // const prevMoves = state.prevMoves;
-
-        // let randomNum = Math.floor( Math.floor(Math.random() * 9)  );
-
-        // let x;
-
-        // for(let i = 0; i < 9; i++) {
-        //     if(prevMoves.includes(randomNum)) {
-        //         console.log('number included')
-        //         continue;
-        //     } else {
-        //         console.log('number NOT included')
-        //         x = randomNum;
-        //         break;
-        //         // break;
-        //     }
-        // }
-
-        // state.ai = x;
-        // console.log('ai move: ', x)
-        // -------------------------------------------------------------
 
         let pMoves = await state.prevMoves;
         let randomNum = Math.floor(Math.random() * 8);
@@ -156,21 +135,6 @@ const actions = {
                 state.prevMoves[randomNum] = randomNum;
                 dispatch('checkWinner');
                 state.gameState[randomNum] = 'O';
-
-                // for(let i = 0; i < 8; i++) {
-                //     if(Array.isArray(state.prevMoves)) {
-                        
-                //         if(pMoves.includes(randomNum)) {
-                //             // randomNum = Math.floor(Math.random() * 8);
-                //             continue;
-                //         } else {
-                //             state.gameState[randomNum] = 'O';
-                //             state.prevMoves[randomNum] = randomNum;
-                //             commit('SET_CURRENT_PLAYER', 'O');
-                //             dispatch('checkWinner');
-                //         }
-                //     }
-                // }
             }
         }, 500)
 
