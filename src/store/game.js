@@ -78,6 +78,7 @@ const actions = {
         state.gameActive = true;
         state.currentPlayer = 'X';
         state.gameState = ['','','','','','','','',''];
+        state.prevMoves = ['','','','','','','','',''];
         state.reset = true;
         setTimeout(() => {
             state.reset = false;
