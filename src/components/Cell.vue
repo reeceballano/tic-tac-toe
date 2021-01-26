@@ -99,11 +99,19 @@ export default {
 
         watch(gameState.value, () => {
             if(prevMoves.value.includes(props.cell) && gameState.value[props.cell] === 'O') {
-                playerIcon.value = 'circle';
+                if(resetState.value) {
+                    playerIcon.value = '';
+                } else {
+                    playerIcon.value = 'circle';
+                }
             } 
 
             if(prevMoves.value.includes(props.cell) && gameState.value[props.cell] === 'X') {
-                playerIcon.value = 'times';
+                if(resetState.value) {
+                    playerIcon.value = '';
+                } else {
+                    playerIcon.value = 'times';
+                }
             }
         })
 
