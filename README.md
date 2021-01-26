@@ -12,3 +12,5 @@ https://choco-tictactoe.netlify.app/
 - Vuex 4
 - TailwindCSS 2
 
+## AI
+
